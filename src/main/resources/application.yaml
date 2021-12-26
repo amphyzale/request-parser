@@ -1,0 +1,6 @@
+server:
+  port: 8080
+calculator:
+  url: 'http://localhost:8090/calculator/api/v1'
+  user: user
+  password: pwd
