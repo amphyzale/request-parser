@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class MainController {
     private final InfoProcessorService service;
 
     @PostMapping("/from_json")
-    public Response info(@RequestBody List<Info> request) {
+    public Response info(@RequestBody @Valid List<Info> request) {
         return service.processRequest(request);
     }
 
