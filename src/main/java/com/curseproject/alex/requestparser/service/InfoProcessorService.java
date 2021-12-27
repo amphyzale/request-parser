@@ -1,5 +1,7 @@
 package com.curseproject.alex.requestparser.service;
 
+import com.curseproject.alex.requestparser.model.Response;
+
 public interface InfoProcessorService {
-    String processRequest(Object obj);
+    Response processRequest(Object obj);
 }

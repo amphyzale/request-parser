@@ -4,7 +4,6 @@ import com.curseproject.alex.requestparser.manager.Extractor;
 import com.curseproject.alex.requestparser.model.Info;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -37,19 +36,20 @@ public class FileExtractorImpl implements Extractor {
         while (rowIterator.hasNext()) {
             final Row row = rowIterator.next();
             result.add(new Info()
-                    .setOptimisticGrade(row.getCell(0).getNumericCellValue())
-                    .setPessimisticGrade(row.getCell(1).getNumericCellValue())
-                    .setTimeForOneCase(row.getCell(2).getNumericCellValue())
-                    .setCaseCount((int) row.getCell(3).getNumericCellValue())
-                    .setComplexityCoefficient((int) row.getCell(4).getNumericCellValue())
-                    .setIsStandAvailable(Boolean.valueOf(row.getCell(5).getStringCellValue()))
-                    .setIsBackDone(Boolean.valueOf(row.getCell(6).getStringCellValue()))
-                    .setIsFrontDone(Boolean.valueOf(row.getCell(7).getStringCellValue()))
-                    .setIsAllTestersWorkFullDay(Boolean.valueOf(row.getCell(8).getStringCellValue()))
-                    .setHasAutotests(Boolean.valueOf(row.getCell(9).getStringCellValue()))
-                    .setCheckListTestCount((int) row.getCell(10).getNumericCellValue())
-                    .setTestPriority(resolvePriority(row.getCell(11).getStringCellValue()))
-                    .setTimeForOneTest(row.getCell(12).getNumericCellValue())
+                    .setTaskNumber(row.getCell(0).getStringCellValue())
+                    .setOptimisticGrade(row.getCell(1).getNumericCellValue())
+                    .setPessimisticGrade(row.getCell(2).getNumericCellValue())
+                    .setTimeForOneCase(row.getCell(3).getNumericCellValue())
+                    .setCaseCount((int) row.getCell(4).getNumericCellValue())
+                    .setComplexityCoefficient((int) row.getCell(5).getNumericCellValue())
+                    .setIsStandAvailable(Boolean.valueOf(row.getCell(6).getStringCellValue()))
+                    .setIsBackDone(Boolean.valueOf(row.getCell(7).getStringCellValue()))
+                    .setIsFrontDone(Boolean.valueOf(row.getCell(8).getStringCellValue()))
+                    .setIsAllTestersWorkFullDay(Boolean.valueOf(row.getCell(9).getStringCellValue()))
+                    .setHasAutotests(Boolean.valueOf(row.getCell(10).getStringCellValue()))
+                    .setCheckListTestCount((int) row.getCell(11).getNumericCellValue())
+                    .setTestPriority(resolvePriority(row.getCell(12).getStringCellValue()))
+                    .setTimeForOneTest(row.getCell(13).getNumericCellValue())
             );
         }
         return result;

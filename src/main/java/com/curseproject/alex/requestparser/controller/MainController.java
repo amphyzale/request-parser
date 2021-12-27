@@ -1,6 +1,7 @@
 package com.curseproject.alex.requestparser.controller;
 
 import com.curseproject.alex.requestparser.model.Info;
+import com.curseproject.alex.requestparser.model.Response;
 import com.curseproject.alex.requestparser.service.InfoProcessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ public class MainController {
     private final InfoProcessorService service;
 
     @PostMapping("/from_json")
-    public String info(@RequestBody List<Info> request) {
+    public Response info(@RequestBody List<Info> request) {
         return service.processRequest(request);
     }
 
     @PostMapping("/from_file")
-    public String getFromFile(@RequestParam("file") MultipartFile file) {
+    public Response getFromFile(@RequestParam("file") MultipartFile file) {
         return service.processRequest(file);
     }
 

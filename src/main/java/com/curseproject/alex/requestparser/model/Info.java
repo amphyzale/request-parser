@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @Accessors(chain = true)
 public class Info implements Serializable {
+    private String taskNumber;
     //1) Метод оценки и анализа проектов PERT
     private Double optimisticGrade;
     private Double pessimisticGrade;
