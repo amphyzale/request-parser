@@ -22,8 +22,8 @@ public class IntegrationConfig {
     @Bean("customRestTemplate")
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
-                .setConnectTimeout(Duration.ofSeconds(1))
-                .setReadTimeout(Duration.ofSeconds(1))
+                .setConnectTimeout(Duration.ofSeconds(30))
+                .setReadTimeout(Duration.ofSeconds(30))
                 .basicAuthentication(user, password)
                 .uriTemplateHandler(new DefaultUriBuilderFactory(url))
                 .build();
