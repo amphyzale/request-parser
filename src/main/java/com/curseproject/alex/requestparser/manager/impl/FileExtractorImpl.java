@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -22,7 +21,7 @@ import java.util.List;
 public class FileExtractorImpl implements Extractor {
 
     @Override
-    public Info extract(Object obj) {
+    public List<Info> extract(Object obj) {
         final MultipartFile file = (MultipartFile) obj;
         final XSSFWorkbook book;
         try {
@@ -38,15 +37,33 @@ public class FileExtractorImpl implements Extractor {
         while (rowIterator.hasNext()) {
             final Row row = rowIterator.next();
             result.add(new Info()
-                    .setInfo(row.getCell(0).getStringCellValue())
-                    .setNum(row.getCell(1).getNumericCellValue())
+                    .setOptimisticGrade(row.getCell(0).getNumericCellValue())
+                    .setPessimisticGrade(row.getCell(1).getNumericCellValue())
+                    .setTimeForOneCase(row.getCell(2).getNumericCellValue())
+                    .setCaseCount((int) row.getCell(3).getNumericCellValue())
+                    .setComplexityCoefficient((int) row.getCell(4).getNumericCellValue())
+                    .setIsStandAvailable(Boolean.valueOf(row.getCell(5).getStringCellValue()))
+                    .setIsBackDone(Boolean.valueOf(row.getCell(6).getStringCellValue()))
+                    .setIsFrontDone(Boolean.valueOf(row.getCell(7).getStringCellValue()))
+                    .setIsAllTestersWorkFullDay(Boolean.valueOf(row.getCell(8).getStringCellValue()))
+                    .setHasAutotests(Boolean.valueOf(row.getCell(9).getStringCellValue()))
+                    .setCheckListTestCount((int) row.getCell(10).getNumericCellValue())
+                    .setTestPriority(resolvePriority(row.getCell(11).getStringCellValue()))
+                    .setTimeForOneTest(row.getCell(12).getNumericCellValue())
             );
         }
-        return result.get(0);
+        return result;
     }
 
     @Override
     public boolean supports(Object obj) {
         return obj instanceof MultipartFile;
+    }
+
+    private List<String> resolvePriority(String priority) {
+        return Arrays.stream(priority.split(","))
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .collect(Collectors.toList());
     }
 }

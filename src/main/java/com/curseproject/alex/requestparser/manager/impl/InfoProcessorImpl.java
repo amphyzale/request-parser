@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class InfoProcessorImpl implements InfoProcessor {
     private final RestTemplate template;
 
     @Override
-    public String processInfo(Info info) {
+    public String processInfo(List<Info> info) {
         log.info(info.toString());
         return "WIN";
     }
